@@ -1,14 +1,43 @@
-import { Card } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
+import postApi from "../../api/postApi";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const PostDetails = () => {
   const { id } = useParams()
+  const [post, setPost] = useState({})
+
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const response = await postApi.get(id)
+        setPost(response)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
+    getPost()
+  }, [id])
 
   return (
-    <Card className="post-details">
-      <Card.Title>post details: {id}</Card.Title>
-      <Card.Text> Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nam eligendi omnis alias ratione accusantium quis repellendus, tempore, modi dignissimos animi rem dolor id placeat enim facere repellat quibusdam! Nostrum! </Card.Text>
-    </Card>
+    <Container className="post-details">
+      <Card>
+        <Card.Title>{post.title}</Card.Title>
+        <Card.Text>{post.content}</Card.Text>
+      </Card>
+      <h1>Comments</h1>
+      {post.comments?.map((comment) => {
+        return (
+          <div className="comment" key={comment.id}>
+            <p>{comment.user.email}</p>
+            <p>{comment.body}</p>
+            <p>{comment.created_at}</p>
+            <p>{comment.updated_at}</p>
+          </div>
+        )
+      })}
+    </Container>
   );
 }
 

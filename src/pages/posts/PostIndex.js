@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import PostList from "./components/PostList";
+import postApi from "../../api/postApi";
 
 const PostIndex = () => {
   const pageTitle = 'Posts'
-  const [posts, setPosts] = useState([
-    { title: 'Lorem', content: 'lorem ipsum', author: 'u1', id: 1 },
-    { title: 'Lorem', content: 'lorem ipsum', author: 'u2', id: 2 },
-    { title: 'Lorem', content: 'lorem ipsum', author: 'u2', id: 3 },
-    { title: 'Lorem', content: 'lorem ipsum', author: 'u2', id: 4 },
-    { title: 'Lorem', content: 'lorem ipsum', author: 'u2', id: 5 },
-    { title: 'Lorem', content: 'lorem ipsum', author: 'u2', id: 6 }
-  ])
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    const getAllPosts = async () => {
+      try {
+        const params = {};
+        const response = await postApi.getAll(params)
+        setPosts(response)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
+    getAllPosts()
+  }, [])
 
   return (
     <Container fluid>
