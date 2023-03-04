@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import PostList from "./PostList";
+import PostList from "./components/PostList";
 
-const Home = () => {
+const PostIndex = () => {
   const pageTitle = 'Posts'
   const [posts, setPosts] = useState([
     { title: 'Lorem', content: 'lorem ipsum', author: 'u1', id: 1 },
@@ -21,4 +21,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default PostIndex;
