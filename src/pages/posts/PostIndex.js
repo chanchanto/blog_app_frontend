@@ -12,7 +12,7 @@ const PostIndex = () => {
       try {
         const params = {};
         const response = await postApi.getAll(params)
-        setPosts(response)
+        setPosts(response.data)
       } catch (error) {
         console.log(error.message)
       }

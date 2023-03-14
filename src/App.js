@@ -8,6 +8,8 @@ import {
 
 // pages
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import PostIndex from './pages/posts/PostIndex';
 import PostDetails from './pages/posts/PostDetails';
@@ -26,6 +28,8 @@ const router = createBrowserRouter(
         <Route index element={<PostIndex />} key="index" />
         <Route path=":id" element={<PostDetails />} key="show" />
       </Route>
+      <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

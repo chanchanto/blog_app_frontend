@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { parse, stringify } from 'qs'
 
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: BASE_URL,
   headers: {
     'content-type': 'application/json',
   },
@@ -13,15 +15,14 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-  // Handle token
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = token;
+  }
   return config;
 });
 
 axiosClient.interceptors.response.use((response) => {
-  if (response && response.data) {
-    return response.data;
-  }
-
   return response;
 }, (error) => {
   // Handle errors

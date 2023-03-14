@@ -11,7 +11,7 @@ const PostDetails = () => {
     const getPost = async () => {
       try {
         const response = await postApi.get(id)
-        setPost(response)
+        setPost(response.data)
       } catch (error) {
         console.log(error.message)
       }
