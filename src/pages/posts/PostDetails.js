@@ -24,7 +24,12 @@ const PostDetails = () => {
     <Container className="post-details">
       <Card>
         <Card.Title>{post.title}</Card.Title>
-        <Card.Text>{post.content}</Card.Text>
+        <div>
+          {post.user?.email}
+        </div>
+        <div>
+          {post.content}
+        </div>
       </Card>
       <h1>Comments</h1>
       {post.comments?.map((comment) => {

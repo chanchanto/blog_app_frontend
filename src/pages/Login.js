@@ -36,7 +36,7 @@ const Login = () => {
           store.actions.setIsLoggedIn(true)
           store.actions.setIsLoadingRequest(false)
 
-          navigate('/posts');
+          navigate('/');
         } catch (error) {
           store.actions.setIsLoadingRequest(false)
           console.log(error.message)
@@ -57,7 +57,7 @@ const Login = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          className={formik.touched.name && formik.errors.name ? "has-error" : null}
+          className={formik.touched.email && formik.errors.email ? "has-error" : null}
         />
         {formik.touched.email && formik.errors.email ? (
           <div className="error-message">{formik.errors.email}</div>

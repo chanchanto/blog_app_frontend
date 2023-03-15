@@ -13,6 +13,8 @@ import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import PostIndex from './pages/posts/PostIndex';
 import PostDetails from './pages/posts/PostDetails';
+import PostForm from './pages/posts/components/PostForm';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 // layouts
 import RootLayout from './pages/layouts/RootLayout';
@@ -27,9 +29,13 @@ const router = createBrowserRouter(
       <Route path="posts">
         <Route index element={<PostIndex />} key="index" />
         <Route path=":id" element={<PostDetails />} key="show" />
+        <Route
+          path="new"
+          element={<ProtectedRoute> <PostForm /> </ProtectedRoute>}
+          key="new" />
       </Route>
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<Signup />} />
+      <Route path='login' element={<Login />} />
+      <Route path='signup' element={<Signup />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )
