@@ -37,6 +37,11 @@ class PostApi {
     };
     return axiosClient.put(url, params);
   };
+
+  delete = (id) => {
+    const url = `${POST_URL}/${id}`;
+    return axiosClient.delete(url);
+  };
 }
 
 const postApi = new PostApi();
