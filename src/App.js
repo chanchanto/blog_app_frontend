@@ -20,9 +20,6 @@ import ProtectedRoute from './pages/ProtectedRoute';
 // layouts
 import RootLayout from './pages/layouts/RootLayout';
 
-// css
-import './App.css';
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
