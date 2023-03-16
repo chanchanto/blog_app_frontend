@@ -32,12 +32,12 @@ const Header = () => {
         <Navbar.Collapse className="justify-content-end">
           <Nav className="me-auto">
             <Nav.Link className="me-3" as={NavLink} to="/">Home</Nav.Link>
-            <Nav.Link className="me-3" as={NavLink} to="/posts/new">Write new post</Nav.Link>
+            <Nav.Link className="me-3" as={NavLink} to="/posts/create">Write new post</Nav.Link>
           </Nav>
           <Nav>
             {store.isLoggedIn
               ? (
-                <NavDropdown title={JSON.parse(localStorage.getItem('currentUser')).email}>
+                <NavDropdown title={store.currentUser.email}>
                   <NavDropdown.Item as={Link} to="">Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item

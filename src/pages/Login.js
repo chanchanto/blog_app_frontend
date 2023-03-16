@@ -32,9 +32,9 @@ const Login = () => {
           console.log(response.data)
 
           localStorage.setItem('token', response.headers.authorization)
-          localStorage.setItem('currentUser', JSON.stringify(response.data.user))
           store.actions.setIsLoggedIn(true)
           store.actions.setIsLoadingRequest(false)
+          store.actions.setCurrentUser(response.data.user)
 
           navigate('/');
         } catch (error) {

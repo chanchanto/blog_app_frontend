@@ -15,7 +15,6 @@ class PostApi {
 
   create = (_params) => {
     const url = POST_URL;
-    console.log(_params);
     const params = {
       post: {
         title: _params.title,
@@ -25,6 +24,18 @@ class PostApi {
     };
     console.log(params);
     return axiosClient.post(url, params);
+  };
+
+  edit = (id, _params) => {
+    const url = `${POST_URL}/${id}`;
+    const params = {
+      post: {
+        title: _params.title,
+        content: _params.content,
+        tags: _params.tags,
+      }
+    };
+    return axiosClient.put(url, params);
   };
 }
 

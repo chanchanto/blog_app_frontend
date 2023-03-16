@@ -13,22 +13,26 @@ const PostSchema = Yup.object().shape({
   tags: Yup.string()
 });
 
-const PostForm = () => {
+const PostForm = ({ post }) => {
   const store = useStore()
   const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      content: '',
-      tags: ''
+      title: post ? post.title : '',
+      content: post ? post.content : '',
+      tags: post && post.tags ? post.tags.join(',') : ''
     },
     validationSchema: PostSchema,
     onSubmit: values => {
       const login = async () => {
         try {
           store.actions.setIsLoadingRequest(true)
-          const response = await postApi.create(values)
+          console.log('values:');
+          console.log(values);
+          const response = post
+            ? await postApi.edit(post.id, values)
+            : await postApi.create(values)
           console.log(response.data)
 
           navigate('/posts/' + response.data.id);
@@ -89,9 +93,11 @@ const PostForm = () => {
           <div className="error-message">{formik.errors.tags}</div>
         ) : null}
       </Form.Group>
-      <Button variant="primary" type="submit">Create new post</Button>
+      <Button variant="primary" type="submit">
+        {post ? 'Edit post' : 'Create new post'}
+      </Button>
     </Form>
   );
 }
- 
+
 export default PostForm;
