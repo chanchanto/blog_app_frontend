@@ -1,13 +1,13 @@
 import { Container } from "react-bootstrap";
 import Comment from "./Comment";
 
-const CommentList = ({ comments }) => {
+const CommentList = ({ postId, comments }) => {
   return (
     <Container>
       {comments && comments.length
         ? comments?.map((comment) => {
           return (
-            <Comment comment={comment} key={comment.id} />
+            <Comment postId={postId} comment={comment} key={comment.id} />
           )
         })
         : 'No comment yet'

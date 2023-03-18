@@ -25,15 +25,13 @@ const PostForm = ({ post }) => {
     },
     validationSchema: PostSchema,
     onSubmit: values => {
-      const login = async () => {
+      const handler = async () => {
         try {
           store.actions.setIsLoadingRequest(true)
-          console.log('values:');
-          console.log(values);
           const response = post
             ? await postApi.edit(post.id, values)
             : await postApi.create(values)
-          console.log(response.data)
+          store.actions.setIsLoadingRequest(false)
 
           navigate('/posts/' + response.data.id);
         } catch (error) {
@@ -41,7 +39,7 @@ const PostForm = ({ post }) => {
           console.log(error.message)
         }
       }
-      login()
+      handler()
     }
   });
 
