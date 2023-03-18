@@ -8,6 +8,7 @@ import postApi from "../../api/postApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useStore from "../../store";
+import CommentList from "../comments/CommentList";
 
 const PostDetails = () => {
   const { id } = useParams()
@@ -65,17 +66,9 @@ const PostDetails = () => {
           {post.content}
         </div>
       </Card>
+      
       <h1>Comments</h1>
-      {post.comments?.map((comment) => {
-        return (
-          <div className="comment" key={comment.id}>
-            <p>{comment.user.email}</p>
-            <p>{comment.body}</p>
-            <p>{comment.created_at}</p>
-            <p>{comment.updated_at}</p>
-          </div>
-        )
-      })}
+      <CommentList comments={post.comments} />
     </Container>
   );
 }
