@@ -7,13 +7,20 @@ const CommentSchema = Yup.object().shape({
     .required('Required')
 });
 
-const CommentForm = ({ comment, handleSubmit }) => {
+const CommentForm = ({ comment, handleSubmit, toggleForm }) => {
   const formik = useFormik({
     initialValues: {
       body: comment ? comment.body : ''
     },
     validationSchema: CommentSchema,
-    onSubmit: values => handleSubmit(values)
+    onSubmit: values => {
+      if (comment) {
+        handleSubmit(comment.id, values)
+        toggleForm()
+      } else {
+        handleSubmit(values)
+      }
+    }
   });
 
   return (
@@ -36,6 +43,15 @@ const CommentForm = ({ comment, handleSubmit }) => {
       <Button variant="primary" type="submit">
         {comment ? 'Edit comment' : 'Create new comment'}
       </Button>
+      {comment
+        ? (<Button
+          variant="outline-primary"
+          type="button"
+          onClick={toggleForm}
+        >Cancel</Button>)
+        : null
+      }
+
     </Form>
   );
 }

@@ -23,14 +23,14 @@ const CommentIndex = ({ postId }) => {
     }
   }
 
-  const handleEdit = async (editedComment) => {
+  const handleEdit = async (id, editedComment) => {
     try {
       store.actions.setIsLoadingRequest(true)
-      const response = await commentApi.edit(postId, editedComment)
+      const response = await commentApi.edit(postId, id, editedComment)
       store.actions.setIsLoadingRequest(false)
 
-      const index = comments.findIndex(comment => comment.id === editedComment.id)
-      comments.comments[index] = response.data
+      const index = comments.findIndex(comment => comment.id === id)
+      comments[index] = response.data
       setComments(comments)
     } catch (error) {
       store.actions.setIsLoadingRequest(false)
@@ -75,7 +75,6 @@ const CommentIndex = ({ postId }) => {
         handleDelete={handleDelete} />
       {store.isLoggedIn
         ? <CommentForm
-          postId={postId}
           comment={null}
           handleSubmit={handleCreate}
         />
