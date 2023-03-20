@@ -8,30 +8,13 @@ import postApi from "../../api/postApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useStore from "../../store";
-import CommentList from "../comments/CommentList";
-import CommentForm from "../comments/CommentForm";
+import CommentIndex from "../comments/CommentIndex";
 
 const PostDetails = () => {
   const { id } = useParams()
   const [post, setPost] = useState({})
   const store = useStore()
   const navigate = useNavigate()
-
-  const setComments = (newComment) => {
-    const comments = post.comments
-    const comment = comments.find(comment => comment.id === newComment.id)
-    if (comment) {
-      // edit old comment to new comment
-      var _post = post
-      const index = _post.comments.findIndex(comment => comment.id === newComment.id)
-      _post.comments[index] = newComment
-      setPost(_post)
-    } else {
-      // add new comment
-      post.comments.push(newComment)
-      setPost(post)
-    }
-  }
 
   const handleEdit = () => {
     navigate(`/posts/${id}/edit`, { replace: true, state: { post } })
@@ -83,12 +66,8 @@ const PostDetails = () => {
           {post.content}
         </div>
       </Card>
-
-      <h1>Comments</h1>
-      <CommentList postId={id} comments={post.comments} />
-      {store.isLoggedIn
-        ? <CommentForm postId={id} setComments={setComments} comment={null} />
-        : null}
+      
+      <CommentIndex postId={post.id} />
     </Container>
   );
 }

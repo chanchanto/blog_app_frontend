@@ -1,6 +1,11 @@
 import axiosClient from "./axiosClient";
 
 class CommentApi {
+  get = (postId) => {
+    const url = `/posts/${postId}/comments`;
+    return axiosClient.get(url);
+  }
+
   create = (postId, _params) => {
     const url = `/posts/${postId}/comments`;
     const params = {
