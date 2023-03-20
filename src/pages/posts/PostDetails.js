@@ -67,7 +67,7 @@ const PostDetails = () => {
         </div>
       </Card>
       
-      <CommentIndex postId={post.id} />
+      <CommentIndex postId={id} />
     </Container>
   );
 }
