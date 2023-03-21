@@ -2,10 +2,16 @@ import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import PostList from "./components/PostList";
 import postApi from "../../api/postApi";
+import Pagination from "./components/Pagination";
 
 const PostIndex = () => {
   const pageTitle = 'Posts'
   const [posts, setPosts] = useState([])
+
+  const postPerPage = 9
+  const [itemOffset, setItemOffset] = useState(0)
+  const endOffset = itemOffset + postPerPage
+  const currentPosts = posts.slice(itemOffset, endOffset)
 
   useEffect(() => {
     const getAllPosts = async () => {
@@ -24,7 +30,13 @@ const PostIndex = () => {
   return (
     <Container fluid>
       <h1>{pageTitle}</h1>
-      <PostList posts={posts} />
+      <span>Displaying posts {itemOffset + 1} - {endOffset} of {posts.length}</span>
+      <PostList posts={currentPosts} />
+      <Pagination
+        itemsLength={posts.length}
+        setItemOffset={setItemOffset}
+        itemsPerPage={9}
+      />
     </Container>
   );
 }
