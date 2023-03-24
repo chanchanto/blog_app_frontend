@@ -67,17 +67,20 @@ const CommentIndex = ({ postId }) => {
 
   return (
     <Container>
-      <h1>Comments</h1>
+      <h2>Comments ({comments.length})</h2>
       <CommentList
         postId={postId}
         comments={comments}
         handleEdit={handleEdit}
         handleDelete={handleDelete} />
       {store.isLoggedIn
-        ? <CommentForm
-          comment={null}
-          handleSubmit={handleCreate}
-        />
+        ? (<><h2>Write new comment</h2>
+          <CommentForm
+            comment={null}
+            handleSubmit={handleCreate}
+          />
+        </>
+        )
         : null}
     </Container>
   );

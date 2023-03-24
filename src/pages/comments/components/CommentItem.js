@@ -19,14 +19,16 @@ const Comment = ({ comment, handleEdit, handleDelete }) => {
   }
 
   return (
-    <Container className="mx-0 my-2 py-2">
+    <Container className="mx-0 my-4 py-2">
       <div className="comment">
         <Row>
           <Col>
-            <Row>{comment.user.email}</Row>
+            <Row className="text-black-50">{comment.user.email}</Row>
             <Row>
-              <Col className="p-0">
-                <span>commented {moment(comment.created_at).fromNow()}</span>
+              <Col className="p-0 text-black-50">
+                <span>
+                  commented {moment(comment.created_at).fromNow()}
+                </span>
                 {comment.updated_at > comment.created_at
                   ? (<span>, edited {moment(comment.updated_at).fromNow()} </span>)
                   : null
@@ -51,16 +53,18 @@ const Comment = ({ comment, handleEdit, handleDelete }) => {
               : null}
           </Col>
         </Row>
-        <div>
-          {store.isLoggedIn && (comment.user?.id === store.currentUser.id) && showForm
-            ? (<CommentForm
-              comment={comment}
-              handleSubmit={handleEdit}
-              toggleForm={toggleForm}
-            />)
-            : comment.body
-          }
-        </div>
+        <Row>
+          <Col className="py-1 ps-5">
+            {store.isLoggedIn && (comment.user?.id === store.currentUser.id) && showForm
+              ? (<CommentForm
+                comment={comment}
+                handleSubmit={handleEdit}
+                toggleForm={toggleForm}
+              />)
+              : comment.body
+            }
+          </Col>
+        </Row>
       </div>
     </Container>
   );

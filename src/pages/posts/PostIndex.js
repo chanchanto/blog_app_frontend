@@ -29,7 +29,7 @@ const PostIndex = () => {
 
   return (
     <Container fluid>
-      <h1>{pageTitle}</h1>
+      <h2>{pageTitle}</h2>
       <span>Displaying posts {itemOffset + 1} - {endOffset} of {posts.length}</span>
       <PostList posts={currentPosts} />
       <Pagination

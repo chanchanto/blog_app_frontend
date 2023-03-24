@@ -1,9 +1,10 @@
 import { Container } from "react-bootstrap";
-import Comment from "./Comment";
+import Comment from "./CommentItem";
+import { NavLink } from "react-router-dom"
 
 const CommentList = ({ postId, comments, handleEdit, handleDelete }) => {
   return (
-    <Container>
+    <Container className="p-0">
       {comments && comments.length
         ? comments?.map((comment) => {
           return (
@@ -15,7 +16,7 @@ const CommentList = ({ postId, comments, handleEdit, handleDelete }) => {
               key={comment.id} />
           )
         })
-        : 'No comment yet'
+        : <p>No comment yet. <NavLink to="/Login">Login</NavLink> to post your comments.</p>
       }
     </Container>
   );

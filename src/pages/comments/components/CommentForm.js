@@ -29,7 +29,7 @@ const CommentForm = ({ comment, handleSubmit, toggleForm }) => {
         <Form.Control
           as="textarea"
           name="body"
-          placeholder="Comment"
+          placeholder="Your new comment"
           style={{ height: '100px' }}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -40,18 +40,23 @@ const CommentForm = ({ comment, handleSubmit, toggleForm }) => {
           <div className="error-message">{formik.errors.body}</div>
         ) : null}
       </Form.Group>
-      <Button variant="primary" type="submit">
-        {comment ? 'Edit comment' : 'Create new comment'}
-      </Button>
-      {comment
-        ? (<Button
-          variant="outline-primary"
-          type="button"
-          onClick={toggleForm}
-        >Cancel</Button>)
-        : null
-      }
-
+      <div className="d-flex justify-content-end pt-2">
+        {comment
+          ? (<Button
+            className="ms-3"
+            variant="outline-primary"
+            type="button"
+            onClick={toggleForm}
+          >Cancel</Button>)
+          : null
+        }
+        <Button
+          className="ms-3"
+          variant="primary"
+          type="submit">
+          {comment ? 'Edit comment' : 'Create new comment'}
+        </Button>
+      </div>
     </Form>
   );
 }
