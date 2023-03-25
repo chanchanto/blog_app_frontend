@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import authApi from "../../api/authApi";
 import useStore from "../../store";
+import { toast } from 'react-toastify';
 
 const Header = () => {
   const store = useStore()
@@ -19,9 +20,10 @@ const Header = () => {
       store.actions.setIsLoadingRequest(false)
 
       localStorage.clear()
+      toast.success('You are logged out')
     } catch (error) {
       store.actions.setIsLoadingRequest(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 

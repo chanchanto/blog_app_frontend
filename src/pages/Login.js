@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import authApi from '../api/authApi';
 import useStore from '../store';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -30,17 +31,18 @@ const Login = () => {
         try {
           store.actions.setIsLoadingRequest(true)
           const response = await authApi.login(values)
-          console.log(response.data)
 
           localStorage.setItem('token', response.headers.authorization)
           store.actions.setIsLoggedIn(true)
           store.actions.setIsLoadingRequest(false)
           store.actions.setCurrentUser(response.data.user)
 
+          toast.success('You are logged in')
           navigate('/');
         } catch (error) {
           store.actions.setIsLoadingRequest(false)
-          console.log(error.message)
+          toast.error("Wrong email or password")
+          toast.error("Or try deleting your token and login again (it's a bug)")
         }
       }
       login()

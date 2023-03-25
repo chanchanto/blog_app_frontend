@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import PostList from "./components/PostList";
 import postApi from "../../api/postApi";
 import Pagination from "./components/Pagination";
+import { toast } from 'react-toastify';
 
 const PostIndex = () => {
   const pageTitle = 'Posts'
@@ -20,7 +21,7 @@ const PostIndex = () => {
         const response = await postApi.getAll(params)
         setPosts(response.data)
       } catch (error) {
-        console.log(error.message)
+        toast.error(error.message)
       }
     }
 

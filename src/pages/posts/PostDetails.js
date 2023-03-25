@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import useStore from "../../store";
 import CommentIndex from "../comments/CommentIndex";
 import moment from "moment";
+import { toast } from 'react-toastify';
 
 const PostDetails = () => {
   const { id } = useParams()
@@ -27,20 +28,25 @@ const PostDetails = () => {
       store.actions.setIsLoadingRequest(true)
       await postApi.delete(id)
       store.actions.setIsLoadingRequest(false)
+
+      toast.success('Deleted post sucessfully')
       navigate('/posts', { replace: true })
     } catch (error) {
       store.actions.setIsLoadingRequest(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 
   useEffect(() => {
     const getPost = async () => {
       try {
+        store.actions.setIsLoadingRequest(true)
         const response = await postApi.get(id)
+        store.actions.setIsLoadingRequest(false)
+
         setPost(response.data)
       } catch (error) {
-        console.log(error.message)
+        toast.error(error.message)
       }
     }
 

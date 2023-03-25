@@ -4,6 +4,7 @@ import CommentForm from "./components/CommentForm";
 import { Container } from "react-bootstrap";
 import useStore from "../../store";
 import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 const CommentIndex = ({ postId }) => {
   const [comments, setComments] = useState([])
@@ -17,9 +18,11 @@ const CommentIndex = ({ postId }) => {
 
       comments.push(response.data)
       setComments(comments)
+
+      toast.success('Created comment sucessfully')
     } catch (error) {
       store.actions.setIsLoadingRequest(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 
@@ -32,9 +35,11 @@ const CommentIndex = ({ postId }) => {
       const index = comments.findIndex(comment => comment.id === id)
       comments[index] = response.data
       setComments(comments)
+
+      toast.success('Edited comment sucessfully')
     } catch (error) {
       store.actions.setIsLoadingRequest(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 
@@ -46,9 +51,11 @@ const CommentIndex = ({ postId }) => {
 
       let _comments = comments.filter(comment => comment.id !== commentId)
       setComments(_comments)
+
+      toast.success('Deleted comment sucessfully')
     } catch (error) {
       store.actions.setIsLoadingRequest(false)
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
 
@@ -58,7 +65,7 @@ const CommentIndex = ({ postId }) => {
         const response = await commentApi.get(postId)
         setComments(response.data)
       } catch (error) {
-        console.log(error.message)
+        toast.error(error.message)
       }
     }
 

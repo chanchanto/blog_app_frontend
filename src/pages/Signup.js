@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import authApi from '../api/authApi';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
@@ -31,10 +32,10 @@ const Signup = () => {
       const signup = async () => {
         try {
           const response = await authApi.signup(values)
-          console.log(response)
+          toast.success('Signed up sucessfully')
           navigate('/login')
         } catch (error) {
-          console.log(error.message)
+          toast.error(error.message)
         }
       }
       signup()

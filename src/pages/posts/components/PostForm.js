@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { useNavigate } from "react-router-dom";
 import postApi from '../../../api/postApi';
 import useStore from '../../../store';
+import { toast } from 'react-toastify';
 
 const PostSchema = Yup.object().shape({
   title: Yup.string()
@@ -34,10 +35,13 @@ const PostForm = ({ post }) => {
             : await postApi.create(values)
           store.actions.setIsLoadingRequest(false)
 
+          post
+            ? toast.success('Edited post sucessfully')
+            : toast.success('Created post sucessfully')
           navigate('/posts/' + response.data.id);
         } catch (error) {
           store.actions.setIsLoadingRequest(false)
-          console.log(error.message)
+          toast.error(error.message)
         }
       }
       handler()

@@ -22,7 +22,6 @@ class PostApi {
         tags: _params.tags,
       }
     };
-    console.log(params);
     return axiosClient.post(url, params);
   };
 
