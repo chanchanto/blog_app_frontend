@@ -1,9 +1,14 @@
-# Getting Started with Create React App
+This is a frontend app for [Blog backend](https://github.com/chanchanto/blog_app_backend).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Environment variables
+Create a `.env.local` file at root, with the below content:
+```
+REACT_APP_API_URL=url
+```
+If you run locally, replace `url` with `http://127.0.0.1:3000/api/v1`. Or if you deployed your backend then replace `url` with your backend url.
 
 ## Available Scripts
-
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 In the project directory, you can run:
 
 ### `npm start`
