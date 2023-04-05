@@ -31,7 +31,7 @@ const PostItem = ({ post }) => {
             basedOn="letters"
           />
         </div>
-        <Row>
+        <Row className="text-black-50">
           <Col>{post.user.email}</Col>
           <Col className="text-end">
             {moment(post.created_at).fromNow()}

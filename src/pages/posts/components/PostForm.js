@@ -1,4 +1,4 @@
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, FloatingLabel } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from "react-router-dom";
@@ -7,13 +7,14 @@ import useStore from '../../../store';
 
 const PostSchema = Yup.object().shape({
   title: Yup.string()
-    .required('Required'),
+    .required('* Required'),
   content: Yup.string()
-    .required('Required'),
-  tags: Yup.string()
+    .required('* Required'),
+  // tags: Yup.string()
 });
 
 const PostForm = ({ post }) => {
+  const pageTitle = 'Write new post'
   const store = useStore()
   const navigate = useNavigate()
 
@@ -45,38 +46,42 @@ const PostForm = ({ post }) => {
 
   return (
     <Form onSubmit={formik.handleSubmit}>
+      <h2 className="text-center">{pageTitle}</h2>
       <Form.Group>
-        <Form.Label>Title</Form.Label>
-        <Form.Control
-          type="text"
-          name="title"
-          placeholder="Title"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.title}
-          className={formik.touched.title && formik.errors.title ? "has-error" : null}
-        />
+        <FloatingLabel label="Title" className="mt-3">
+          <Form.Control
+            type="text"
+            name="title"
+            placeholder="Title"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.title}
+            className={formik.touched.title && formik.errors.title ? "has-error" : null}
+          />
+        </FloatingLabel>
         {formik.touched.title && formik.errors.title ? (
-          <div className="error-message">{formik.errors.title}</div>
+          <div className="text-danger">{formik.errors.title}</div>
         ) : null}
       </Form.Group>
       <Form.Group>
-        <Form.Label>Content</Form.Label>
-        <Form.Control
-          type="text"
-          name="content"
-          placeholder="Content"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.content}
-          className={formik.touched.content && formik.errors.content ? "has-error" : null}
-          autoComplete="on"
-        />
+        <FloatingLabel label="Content" className="mt-3">
+          <Form.Control
+            as="textarea"
+            name="content"
+            placeholder="Your new comment"
+            style={{ height: "200px" }}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.content}
+            className={formik.touched.content && formik.errors.content ? "has-error" : null}
+            autoComplete="on"
+          />
+        </FloatingLabel>
         {formik.touched.content && formik.errors.content ? (
-          <div className="error-message">{formik.errors.content}</div>
+          <div className="text-danger">{formik.errors.content}</div>
         ) : null}
       </Form.Group>
-      <Form.Group>
+      {/* <Form.Group>
         <Form.Label>Tags</Form.Label>
         <Form.Control
           type="text"
@@ -88,12 +93,14 @@ const PostForm = ({ post }) => {
           className={formik.touched.tags && formik.errors.tags ? "has-error" : null}
         />
         {formik.touched.tags && formik.errors.tags ? (
-          <div className="error-message">{formik.errors.tags}</div>
+          <div className="text-danger">{formik.errors.tags}</div>
         ) : null}
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        {post ? 'Edit post' : 'Create new post'}
-      </Button>
+      </Form.Group> */}
+      <div className="d-flex justify-content-center mt-4">
+        <Button variant="primary" type="submit">
+          {post ? 'Edit post' : 'Create new post'}
+        </Button>
+      </div>
     </Form>
   );
 }

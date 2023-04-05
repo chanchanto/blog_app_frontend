@@ -38,8 +38,8 @@ const Header = () => {
             {store.isLoggedIn
               ? (
                 <NavDropdown title={store.currentUser.email}>
-                  <NavDropdown.Item as={Link} to="">Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
+                  {/* <NavDropdown.Item as={Link} to="">Profile</NavDropdown.Item>
+                  <NavDropdown.Divider /> */}
                   <NavDropdown.Item
                     as={Link}
                     onClick={handleLogout}

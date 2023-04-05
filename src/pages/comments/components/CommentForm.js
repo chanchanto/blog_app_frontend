@@ -1,10 +1,10 @@
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, FloatingLabel } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const CommentSchema = Yup.object().shape({
   body: Yup.string()
-    .required('Required')
+    .required('* Required')
 });
 
 const CommentForm = ({ comment, handleSubmit, toggleForm }) => {
@@ -26,18 +26,20 @@ const CommentForm = ({ comment, handleSubmit, toggleForm }) => {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Form.Group>
-        <Form.Control
-          as="textarea"
-          name="body"
-          placeholder="Your new comment"
-          style={{ height: '100px' }}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.body}
-          className={formik.touched.body && formik.errors.body ? "has-error" : null}
-        />
+        <FloatingLabel label="Your comment" className="mt-3">
+          <Form.Control
+            as="textarea"
+            name="body"
+            placeholder="Your new comment"
+            style={{ height: '100px' }}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.body}
+            className={formik.touched.body && formik.errors.body ? "has-error" : null}
+          />
+        </FloatingLabel>
         {formik.touched.body && formik.errors.body ? (
-          <div className="error-message">{formik.errors.body}</div>
+          <div className="text-danger">{formik.errors.body}</div>
         ) : null}
       </Form.Group>
       <div className="d-flex justify-content-end pt-2">

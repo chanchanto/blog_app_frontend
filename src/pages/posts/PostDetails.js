@@ -67,10 +67,10 @@ const PostDetails = () => {
               : null}
           </Col>
         </Row>
-        <Row>
+        <Row className="text-black-50">
           <Col>{post.user?.email}</Col>
         </Row>
-        <Row>
+        <Row className="text-black-50">
           <Col>
             <span>posted {moment(post.created_at).fromNow()}</span>
             {post.updated_at > post.created_at
